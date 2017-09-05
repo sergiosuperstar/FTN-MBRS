@@ -1,0 +1,18 @@
+{
+    model User
+    {
+        string name(max = 10, blank),
+        int age(max = 3, null, unique)
+    },
+    model Project
+    {
+        string title(min = 5, max = 50, unique),
+        User owner(ref = "project_owner", OTM),
+        int percentage(validators[max(100),min(5)],unique,null)
+    },
+    enum Student_Type_Choices = {
+    (0, freshman),
+    (1, smor),
+    (2, cigare)
+    }
+};

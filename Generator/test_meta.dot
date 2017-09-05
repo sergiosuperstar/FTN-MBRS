@@ -1,0 +1,99 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+60064688[ label="{Name|([A-Za-z])\\w+}"]
+
+60065584[ label="{Cardinality|MTM\|OTM}"]
+
+59857136 -> 60039664[arrowtail=diamond, dir=both, headlabel="properties 0..*"]
+59857136[ label="{ModelItem|+name:Name\l}"]
+
+60040112[ label="{Type|+baseType:BaseType\l+customType:Name\l}"]
+
+60039664 -> 60040112[arrowtail=diamond, dir=both, headlabel="type "]
+60039664 -> 60041008[arrowtail=diamond, dir=both, headlabel="options 0..*"]
+60039664[ label="{Property|+name:Name\l}"]
+
+59856240 -> 59856688[arrowtail=diamond, dir=both, headlabel="items 0..*"]
+59856240[ label="{Items|}"]
+
+60041456[ label="{Unique|unique}"]
+
+60041008 -> 60042800[arrowtail=diamond, dir=both, headlabel="maxValue "]
+60041008 -> 60063792[arrowtail=diamond, dir=both, headlabel="minValue "]
+60041008 -> 60065136[arrowtail=diamond, dir=both, headlabel="ref "]
+60041008 -> 60066032[arrowtail=diamond, dir=both, headlabel="validator "]
+60041008[ label="{Options|+unique:Unique\l+null:Null\l+cardinality:Cardinality\l+blank:Blank\l+default:Default\l}"]
+
+60066480 -> 60066928[arrowtail=diamond, dir=both, headlabel="validatorMax "]
+60066480 -> 60067376[arrowtail=diamond, dir=both, headlabel="validatorMin "]
+60066480[ label="{ValidatorValues|}"]
+
+59858480[ label="{Key|\\w+}"]
+
+60080176[ label="{Default|default = ([A-Za-z])\\w+}"]
+
+59858032[ label="{EnumItems|+key:Key\l+value:Value\l}"]
+
+60065136[ label="{Ref|+refName:Name\l}"]
+
+60064240[ label="{Number|[0-9]+}"]
+
+60066032 -> 60066480[arrowtail=diamond, dir=both, headlabel="validatorValues 0..*"]
+60066032[ label="{Validator|}"]
+
+60041904[ label="{Null|null}"]
+
+60042352[ label="{Blank|blank}"]
+
+60040560[ label="{BaseType|string\|int\|date\|datetime\|url\|boolean\|char\|decimal}"]
+
+59856688 -> 59857136[arrowtail=diamond, dir=both, headlabel="modelItem "]
+59856688 -> 59857584[arrowtail=diamond, dir=both, headlabel="enumItem "]
+59856688[ label="{Item|}"]
+
+59857584 -> 59858032[arrowtail=diamond, dir=both, headlabel="enumItems 0..*"]
+59857584[ label="{EnumItem|+name:Name\l}"]
+
+60039216[ label="{Value|\\w+}"]
+
+60066928[ label="{ValidatorMax|+maxValidatorValue:Number\l}"]
+
+60067376[ label="{ValidatorMin|+minValidatorValue:Number\l}"]
+
+60063792[ label="{MinValue|+number:Number\l}"]
+
+60042800[ label="{MaxValue|+number:Number\l}"]
+
+59849392[ label="{STRING|}"]
+
+59854896[ label="{FLOAT|}"]
+
+59849840[ label="{BOOL|}"]
+
+59850288[ label="{INT|}"]
+
+59848944[ label="{ID|}"]
+
+59855792[ label="{BASETYPE|}"]
+59855792 -> 59855344 [dir=back]
+59855792 -> 59849840 [dir=back]
+59855792 -> 59848944 [dir=back]
+59855792 -> 59849392 [dir=back]
+
+59855344[ label="{NUMBER|}"]
+59855344 -> 59854896 [dir=back]
+59855344 -> 59850288 [dir=back]
+
+
+}

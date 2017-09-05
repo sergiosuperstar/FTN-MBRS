@@ -1,0 +1,107 @@
+Items:
+    '{'
+    items *= Item[',']
+    '}'';'
+;
+
+Item:
+    modelItem = ModelItem | enumItem = EnumItem
+;
+
+ModelItem:
+    'model' name = Name
+    '{'
+    properties *= Property[',']
+    '}'
+;
+
+EnumItem:
+    'enum' name = Name "="
+    '{'
+    enumItems *= EnumItems[',']
+    '}'
+;
+
+EnumItems:
+    '(' key = Key ',' value = Value ')'
+;
+
+Key:
+    /\w+/
+;
+
+Value:
+    /\w+/
+;
+
+Property:
+    type = Type name = Name '(' options *= Options[','] ')'
+;
+
+Type:
+    baseType = BaseType | customType = Name
+;
+
+BaseType:
+    'string' | 'int' | 'date' | 'datetime' | 'url' | 'boolean' | 'char' | 'decimal'
+;
+
+Options:
+    (unique = Unique) | (maxValue = MaxValue) | (minValue = MinValue) | (null = Null) | (ref = Ref) | (cardinality = Cardinality) | (blank = Blank) | (validator = Validator) | (default = Default)
+;
+
+Unique:
+    'unique'
+;
+
+Null:
+    'null'
+;
+
+Blank:
+    'blank'
+;
+
+MaxValue:
+    'max' '=' number = Number
+;
+
+MinValue:
+    'min' '=' number = Number
+;
+
+Number:
+    /[0-9]+/
+;
+
+Name:
+    /([A-Za-z])\w+/
+;
+
+Ref:
+    'ref' '=' '"' refName = Name '"'
+;
+
+Cardinality:
+    'MTM' | 'OTM'
+;
+
+Validator:
+    'validators' '[' validatorValues *= ValidatorValues[','] ']'
+;
+
+ValidatorValues:
+    validatorMax = ValidatorMax | validatorMin = ValidatorMin
+;
+
+ValidatorMax:
+    'max' '(' maxValidatorValue = Number ')'
+;
+
+ValidatorMin:
+    'min' '(' minValidatorValue = Number ')'
+;
+
+Default:
+    'default' '=' Name
+;
