@@ -21,8 +21,8 @@ class EntityDetails(object):
 def create_base_html_file(parsed_model):
     filename = "base.generated.html"
     entitiesDetails = []
-    for modelName in parsed_model["modelItems"]:
-        entitiesDetails.append(EntityDetails(modelName["modelName"]))
+    for model in parsed_model["modelItems"]:
+        entitiesDetails.append(EntityDetails(model["modelName"]))
 
     context = {
         'm_modelDetails': entitiesDetails

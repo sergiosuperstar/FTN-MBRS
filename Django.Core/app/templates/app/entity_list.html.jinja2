@@ -1,0 +1,72 @@
+{% raw %}
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+{% endraw %}
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {{m_model.Name}} <small>list</small>
+            </h1>
+        </div>
+    </div>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+        {% for m_modelPropertyName in m_model.PropertyNames -%}
+            <th>{{m_modelPropertyName}}</th>
+        {% endfor -%}
+        <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% raw %}{% for item in item_list %}{% endraw %}
+            <tr>
+                <td><a href="{% raw %}{%{% endraw %} url '{{m_model.UrlForDetails  }}' item.id {% raw %}%}{% endraw %}">{% raw %}{{{% endraw %} item.{{m_model.MainProperty}} {% raw %}}}{% endraw %}</a></td>
+                {% for m_modelPropertyName in m_model.Properties[1:] -%}
+                <td>{% raw %}{{{% endraw %} item.{{m_modelPropertyName}} {% raw %}}}{% endraw %}</td>
+                {% endfor -%}
+                <td>
+                    <div style="float: left">
+                        <form action="{% raw %}{%{% endraw %} url '{{m_model.UrlForEdit}}' item.id {% raw %}%}{% endraw %}" method="put" class="form">
+                            {% raw %}
+                            {% csrf_token %}
+                            {% buttons %}
+                                <button type="submit" class="btn btn-primary" >
+                                    {% bootstrap_icon "edit" %}</button>
+                            {% endbuttons %}
+                            {% endraw %}
+                        </form>
+                    </div>
+                    <div style="float: left; padding-left: 5px">
+                        <form action="{% raw %}{%{% endraw %} url '{{m_model.UrlForDelete}}' item.id {% raw %}%}{% endraw %}" method="delete" class="form">
+                            {% raw %}
+                            {% csrf_token %}
+                            {% buttons %}
+                                <button type="submit" class="btn btn-primary" >
+                                    {% bootstrap_icon "trash" %}</button>
+                            {% endbuttons %}
+                            {% endraw %}
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% raw %}{% endfor %}{% endraw %}
+        </tbody>
+    </table>
+
+
+        <form action="{% raw %}{%{% endraw %} url '{{m_model.UrlForNew}}' {% raw %}%}{% endraw %}" method="get" class="form">
+            {% raw %}
+            {% csrf_token %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary" >
+                    {% bootstrap_icon "plus" %}{% endraw %} New {{m_model.Name}} {% raw %}</button>
+            {% endbuttons %}
+            {% endraw %}
+        </form>
+
+{% raw %}{% endblock content %}{% endraw %}
