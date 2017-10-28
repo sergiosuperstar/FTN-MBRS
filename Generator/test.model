@@ -8,11 +8,18 @@
     {
         string title(min = 5, max = 50, unique),
         User owner(ref = "project_owner", OTM),
-        int percentage(validators[max(100),min(5)],unique,null)
+        int percentage(validators[max(100),min(5)],null)
     },
-    enum Student_Type_Choices = {
-    (0, freshman),
-    (1, smor),
-    (2, cigare)
+    model Task
+    {
+        string title(min = 1, max = 100),
+        Project project(ref = "project_task", OTM),
+        User assignedTo(ref = "user_task", OTM),
+        Task_Status_Choices status(null)
+    },
+    enum Task_Status_Choices = {
+    (OPEN, open),
+    (INPROGRESS, inprogress),
+    (DONE, done)
     }
 };
