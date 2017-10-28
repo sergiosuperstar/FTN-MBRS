@@ -1,17 +1,54 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 # BEGIN_OF_CODE_GENERATION
 
+{% for m_enum in m_models.enumItems -%}
+{{ m_enum.enumName }} = (
+    {% for m_values in m_enum.enumItems %}('{{m_values.key}}', '{{m_values.value}}'),
+{% endfor -%}
+)
 
+{##}
+{% endfor -%}
 {% for m_model in m_models.modelItems -%}
 class {{m_model.modelName}}(models.Model):
 
     {% for m_baseProp in m_model.modelProperties.baseProperties -%}
-        {{ m_baseProp.propertyName }} = models.{{m_mapper[m_baseProp.propertyType]}}()
+        {{ m_baseProp.propertyName }} = models.{{m_mapper[m_baseProp.propertyType]}}(
+        {% for m_option in m_baseProp.options -%}
+            {{""|indent(4,true)}}
+            {% if m_option.optionName != 'validators' -%}
+                {{m_option.optionName}}={{m_option.optionValue}},
+            {% else -%}
+                {{m_option.optionName}}=[
+                {% for m_validator in m_option.optionValue -%}
+                    {{""|indent(4,true)}}
+                    {% if m_validator.validatorName == 'validatorMax' -%}
+                    MaxValueValidator({{m_validator.validatorValue}}),
+                    {% endif-%}
+                    {% if m_validator.validatorName == 'validatorMin' -%}
+                    MinValueValidator({{m_validator.validatorValue}}),
+                    {% endif-%}
+                {% endfor -%}
+                ],
+            {% endif -%}
+        {% endfor -%})
     {% endfor -%}
-
+    {% for m_custProp in m_model.modelProperties.customProperties -%}
+    {%- set ref = m_custProp.options|selectattr("optionName","equalto", "ref")|first %}
+    {%- set cardinality = m_custProp.options|selectattr("optionName","equalto", "cardinality")|first %}
+    {% if ref -%}
+        {% if cardinality.optionValue == 'OTM' -%}
+        {{m_custProp.propertyName}} = models.ForeignKey(to={{m_custProp.propertyType}}, related_name="{{ref.optionValue}}")
+        {% endif -%}
+        {% if cardinality.optionValue == 'MTM' -%}
+        {{m_custProp.propertyName}} = models.ManyToManyField(to={{m_custProp.propertyType}}, related_name="{{ref.optionValue}}")
+        {% endif -%}
+    {% else-%}{{m_custProp.propertyName}} = models.CharField(max_length=20, choices={{m_custProp.propertyType}})
+    {% endif -%}
+    {% endfor-%}
     {##}
     def __str__(self):
         return self.name
