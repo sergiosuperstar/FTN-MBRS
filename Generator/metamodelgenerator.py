@@ -1,7 +1,5 @@
 from textx.metamodel import metamodel_from_file
-from textx.export import metamodel_export, model_export
-from jinja2 import Environment, PackageLoader, select_autoescape
-import pydot, os
+import os
 
 
 class MetamodelGenerator(object):
