@@ -1,0 +1,33 @@
+import os
+from jinja2 import Environment, FileSystemLoader
+
+
+def render_template(template_filename, context):
+    path = os.path.dirname(os.path.abspath(__file__))
+    print(os.path.join(path, '..', "Django.Core\\app\\templates\\"))
+
+    template_environment = Environment(
+        autoescape=False,
+        loader=FileSystemLoader(os.path.join(path, '..', "Django.Core\\app\\templates\\")),
+        trim_blocks=False)
+    return template_environment.get_template(template_filename).render(context)
+
+class EntityDetails(object):
+    def __init__(self, name):
+        self.Name = name
+        #implement logic for creating urls from entity name
+        self.Url = "model" + name
+
+def create_base_html_file(parsed_model):
+    filename = "base.generated.html"
+    entitiesDetails = []
+    for modelName in parsed_model["modelItems"]:
+        entitiesDetails.append(EntityDetails(modelName["modelName"]))
+
+    context = {
+        'm_modelDetails': entitiesDetails
+    }
+
+    with open(filename, 'w') as f:
+        base_html = render_template('base.html.jinja2', context)
+        f.write(base_html)
