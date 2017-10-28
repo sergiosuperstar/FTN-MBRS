@@ -1,5 +1,5 @@
 import os, metamodelgenerator
-import updatemodels
+import updatemodels, updatebasehtml
 
 # read and parse metamodel
 generator = metamodelgenerator.MetamodelGenerator()
@@ -21,3 +21,4 @@ updatemodels.create_model_py_file(parsed_model, generator.mapper)
 # update urls
 
 # update entities templates
+updatebasehtml.create_base_html_file(parsed_model)
