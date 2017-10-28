@@ -1,0 +1,47 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block html %}
+{% endblock html %}
+
+<div id="wrapper">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-brand">
+                Generated system
+            </div>
+            <ul class="nav navbar-nav">
+              <!-- # BEGIN_OF_CODE_GENERATION -->
+              {% for m_modelDetail in m_models -%}
+                <li><a href="{% url '{{m_modelDetails.Url}}' %}">{{m_modelDetails.Name}}</a></li>
+              {% endfor -%}
+              <!-- # END_OF_CODE_GENERATION -->
+            </ul>
+              <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ user }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{% url 'user-profile' %}"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{% url 'logout' %}?next=/login">{% bootstrap_icon "logout" %} Logout</a>
+                        </li>
+                    </ul>
+                </li>
+              </ul>
+          </div>
+        </nav>
+
+    <div id="page-wrapper">
+        <div class="container-fluid" align="center">
+
+            {% block content %}
+            {% endblock content %}
+
+        </div>
+    </div>
+</div>
