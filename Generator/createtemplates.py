@@ -48,3 +48,21 @@ def create_base_html_file_for_entities(parsed_model):
             base_html = render_template('entity_list.html.jinja2', context)
             f.write(base_html)
 
+class EntityCreateDetails(object):
+    def __init__(self, name):
+        self.Name = name
+        #implement logic for creating urls from entity name
+        self.UrlForList = name
+
+def create_add_html_file_for_entities(parsed_model):
+    for model in parsed_model["modelItems"]:
+        model_name = model["modelName"]
+        filename = model_name + "_add_form.generated.html"
+
+        context = {
+            'm_model': EntityCreateDetails(model_name)
+        }
+
+        with open(filename, 'w') as f:
+            create_html = render_template('entity_create.html.jinja2', context)
+            f.write(create_html)

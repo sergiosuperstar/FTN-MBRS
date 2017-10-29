@@ -16,7 +16,7 @@ class EntityDetails(object):
     def __init__(self, name):
         self.Name = name
         #implement logic for creating urls from entity name
-        self.Url = "model" + name
+        self.Url = name
 
 def create_base_html_file(parsed_model):
     filename = "base.generated.html"
