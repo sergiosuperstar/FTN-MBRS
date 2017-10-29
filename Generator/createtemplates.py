@@ -53,6 +53,7 @@ class EntityCreateDetails(object):
         self.Name = name
         #implement logic for creating urls from entity name
         self.UrlForList = name
+        self.MainProperty = None
 
 def create_add_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
@@ -66,3 +67,34 @@ def create_add_html_file_for_entities(parsed_model):
         with open(filename, 'w') as f:
             create_html = render_template('entity_create.html.jinja2', context)
             f.write(create_html)
+
+
+def create_update_html_file_for_entities(parsed_model):
+    for model in parsed_model["modelItems"]:
+        model_name = model["modelName"]
+        filename = model_name + "_update_form.generated.html"
+
+        context = {
+            'm_model': EntityCreateDetails(model_name)
+        }
+
+        with open(filename, 'w') as f:
+            update_html = render_template('entity_update.html.jinja2', context)
+            f.write(update_html)
+
+
+def create_confirm_delete_html_file_for_entities(parsed_model):
+    for model in parsed_model["modelItems"]:
+        model_name = model["modelName"]
+        filename = model_name + "_confirm_delete_form.generated.html"
+
+        m_model = EntityCreateDetails(model_name)
+        # let's say that first property of model is main property
+        m_model.MainProperty = model["modelProperties"]["baseProperties"][0]["propertyName"]
+        context = {
+            'm_model': m_model
+        }
+
+        with open(filename, 'w') as f:
+            update_html = render_template('entity_confirm_delete.html.jinja2', context)
+            f.write(update_html)
