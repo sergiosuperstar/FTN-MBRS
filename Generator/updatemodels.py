@@ -15,7 +15,7 @@ def render_template(template_filename, context):
 
 
 def create_model_py_file(parsed_model, mapper):
-    filename = constants.goBack + constants.targetDestination + "model.py"
+    filename = constants.goBack + constants.targetDestination + "app\\" + "models.py"
 
     context = {
         'm_models': parsed_model,
