@@ -3,6 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 import globals
 
 constants = globals.Constants()
+pathToThePages = constants.goBack + constants.targetDestination + "app\\templates\\app\\"
 def render_template(template_filename, context):
     path = os.path.dirname(os.path.abspath(__file__))
     print(os.path.join(path, constants.goBack, constants.targetDestination + "app\\templates\\app\\"))
@@ -28,7 +29,7 @@ class EntityDetails(object):
 def create_base_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = constants.goBack + constants.targetDestination + ".html"
+        filename = pathToThePages + model_name + ".html"
         entity_properties = []
         entity_properies_name_for_display = []
 
@@ -59,7 +60,7 @@ class EntityCreateDetails(object):
 def create_add_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = constants.goBack + constants.targetDestination + model_name + "_add_form.html"
+        filename = pathToThePages + model_name + "_add_form.html"
 
         context = {
             'm_model': EntityCreateDetails(model_name)
@@ -73,7 +74,7 @@ def create_add_html_file_for_entities(parsed_model):
 def create_update_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = constants.goBack + constants.targetDestination + model_name + "_update_form.html"
+        filename = pathToThePages + model_name + "_update_form.html"
 
         context = {
             'm_model': EntityCreateDetails(model_name)
@@ -87,7 +88,7 @@ def create_update_html_file_for_entities(parsed_model):
 def create_confirm_delete_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = constants.goBack + constants.targetDestination + model_name + "_confirm_delete_form.html"
+        filename = pathToThePages + model_name + "_confirm_delete_form.html"
 
         m_model = EntityCreateDetails(model_name)
         # let's say that first property of model is main property
