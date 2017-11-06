@@ -2,9 +2,9 @@ import os
 from jinja2 import Environment, FileSystemLoader
 import globals
 
+constants = globals.Constants()
 
 def render_template(template_filename, context):
-    constants = globals.Constants()
     path = os.path.dirname(os.path.abspath(__file__))
     print(os.path.join(path, '..', constants.targetDestination + "app\\"))
 
@@ -16,7 +16,7 @@ def render_template(template_filename, context):
 
 
 def create_model_py_file(parsed_model, mapper):
-    filename = "model.generated.py"
+    filename = constants.goBack + constants.targetDestination + "app\\" + "models.py"
 
     context = {
         'm_models': parsed_model,
