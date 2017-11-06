@@ -2,14 +2,14 @@ import os
 from jinja2 import Environment, FileSystemLoader
 import globals
 
+constants = globals.Constants()
 def render_template(template_filename, context):
-    constants = globals.Constants()
     path = os.path.dirname(os.path.abspath(__file__))
-    print(os.path.join(path, '..', constants.targetDestination + "app\\templates\\"))
+    print(os.path.join(path, constants.goBack, constants.targetDestination + "app\\templates\\"))
 
     template_environment = Environment(
         autoescape=False,
-        loader=FileSystemLoader(os.path.join(path, '..', constants.targetDestination + "app\\templates\\")),
+        loader=FileSystemLoader(os.path.join(path, constants.goBack, constants.targetDestination + "app\\templates\\")),
         trim_blocks=False)
     return template_environment.get_template(template_filename).render(context)
 
@@ -20,7 +20,7 @@ class EntityDetails(object):
         self.Url = name
 
 def create_base_html_file(parsed_model):
-    filename = "base.generated.html"
+    filename = constants.goBack + constants.targetDestination + "base.html"
     entitiesDetails = []
     for model in parsed_model["modelItems"]:
         entitiesDetails.append(EntityDetails(model["modelName"]))

@@ -1,9 +1,10 @@
 import os, shutil, glob
 import ctypes
+import globals
 from jaraco.windows import filesystem
 # NEED TO INSTAL jaraco.windows !!!
 
-
+constants = globals.Constants()
 def copySourceToTargetDestination(source, destination):
     if(not os.path.exists(destination)):
         #shutil.copytree(source, destination)
@@ -21,7 +22,8 @@ def copySourceToTargetDestination(source, destination):
                     doRecurisve(file, destination, source)
 
 def doRecurisve(path, destination, source):
-    mkdirDestination = '../Target/Django.Core/' + path.split(source)[1]
+    #mkdirDestination = '../Target/Django.Core/' + path.split(source)[1]
+    mkdirDestination = constants.goBack + constants.targetDestination + path.split(source)[1]
     os.makedirs(mkdirDestination)
     fileList = os.listdir(path)
     for file in fileList:

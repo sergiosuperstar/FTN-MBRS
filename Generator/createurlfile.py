@@ -3,6 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 import globals
 
 constants = globals.Constants()
+
 def render_template(template_filename, context):
     path = os.path.dirname(os.path.abspath(__file__))
     print(os.path.join(path, constants.goBack, constants.targetDestination + "app\\"))
@@ -13,16 +14,18 @@ def render_template(template_filename, context):
         trim_blocks=False)
     return template_environment.get_template(template_filename).render(context)
 
+def create_urls_py_file(parsed_model):
+    filename = constants.goBack + constants.targetDestination + "app\\" + "urls.py"
+    model_entities = []
 
-def create_model_py_file(parsed_model, mapper):
-    filename = constants.goBack + constants.targetDestination + "app\\" + "models.py"
+    for model in parsed_model["modelItems"]:
+        model_name = model["modelName"]
+        model_entities.append(model_name)
 
     context = {
-        'm_models': parsed_model,
-        'm_mapper': mapper
+        'm_models': model_entities
     }
 
     with open(filename, 'w') as f:
-        python_models = render_template('models.py.jinja2', context)
-        f.write(python_models)
-
+        urls_py = render_template('urls.py.jinja2', context)
+        f.write(urls_py)
