@@ -1,6 +1,7 @@
 import os, metamodelgenerator
 import updatemodels, updatebasehtml, createtemplates, copyEngine, createurlfile
 import globals
+import updateviews
 
 # prepare globals
 constants = globals.Constants()
@@ -22,6 +23,7 @@ copyEngine.copySourceToTargetDestination(constants.goBack + constants.djangoCore
 updatemodels.create_model_py_file(parsed_model, generator.mapper)
 
 # update views
+updateviews.create_views_py_file(parsed_model, generator.mapper)
 
 # update urls
 createurlfile.create_urls_py_file(parsed_model)
