@@ -1,14 +1,14 @@
 import os
 from jinja2 import Environment, FileSystemLoader
-
+from execute import targetDestination
 
 def render_template(template_filename, context):
     path = os.path.dirname(os.path.abspath(__file__))
-    print(os.path.join(path, '..', "Target\Django.Core\\app\\templates\\app\\"))
+    print(os.path.join(path, '..', targetDestination + "app\\templates\\app\\"))
 
     template_environment = Environment(
         autoescape=False,
-        loader=FileSystemLoader(os.path.join(path, '..', "Target\Django.Core\\app\\templates\\app\\")),
+        loader=FileSystemLoader(os.path.join(path, '..', targetDestination + "app\\templates\\app\\")),
         trim_blocks=False)
     return template_environment.get_template(template_filename).render(context)
 

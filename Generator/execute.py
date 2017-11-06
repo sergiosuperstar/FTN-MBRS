@@ -12,9 +12,10 @@ print(parsed_model)
 print('*************************************************')
 
 # copy folders and files to target folder
-djangoCoreSource = "../Django.Core/"
-targetDestination = "../Target/Django.Core/"
-copyEngine.copySourceToTargetDestination(djangoCoreSource, targetDestination)
+goBack = "..\\"
+djangoCoreSource = "Django.Core\\"
+targetDestination = "Target\Django.Core\\"
+copyEngine.copySourceToTargetDestination(goBack + djangoCoreSource, goBack + targetDestination)
 
 # update models
 updatemodels.create_model_py_file(parsed_model, generator.mapper)
