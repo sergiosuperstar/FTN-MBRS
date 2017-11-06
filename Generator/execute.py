@@ -1,5 +1,9 @@
 import os, metamodelgenerator
 import updatemodels, updatebasehtml, createtemplates, copyEngine, createurlfile
+import globals
+
+# prepare globals
+constants = globals.Constants()
 
 # read and parse metamodel
 generator = metamodelgenerator.MetamodelGenerator()
@@ -12,10 +16,7 @@ print(parsed_model)
 print('*************************************************')
 
 # copy folders and files to target folder
-goBack = "..\\"
-djangoCoreSource = "Django.Core\\"
-targetDestination = "Target\Django.Core\\"
-copyEngine.copySourceToTargetDestination(goBack + djangoCoreSource, goBack + targetDestination)
+copyEngine.copySourceToTargetDestination(constants.goBack + constants.djangoCoreSource, constants.goBack + constants.targetDestination)
 
 # update models
 updatemodels.create_model_py_file(parsed_model, generator.mapper)

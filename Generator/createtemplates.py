@@ -1,14 +1,15 @@
 import os
 from jinja2 import Environment, FileSystemLoader
-from execute import targetDestination
+import globals
 
+constants = globals.Constants()
 def render_template(template_filename, context):
     path = os.path.dirname(os.path.abspath(__file__))
-    print(os.path.join(path, '..', targetDestination + "app\\templates\\app\\"))
+    print(os.path.join(path, constants.goBack, constants.targetDestination + "app\\templates\\app\\"))
 
     template_environment = Environment(
         autoescape=False,
-        loader=FileSystemLoader(os.path.join(path, '..', targetDestination + "app\\templates\\app\\")),
+        loader=FileSystemLoader(os.path.join(path, constants.goBack, constants.targetDestination + "app\\templates\\app\\")),
         trim_blocks=False)
     return template_environment.get_template(template_filename).render(context)
 
@@ -27,7 +28,7 @@ class EntityDetails(object):
 def create_base_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = model_name + ".generated.html"
+        filename = constants.goBack + constants.targetDestination + ".html"
         entity_properties = []
         entity_properies_name_for_display = []
 
@@ -58,7 +59,7 @@ class EntityCreateDetails(object):
 def create_add_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = model_name + "_add_form.generated.html"
+        filename = constants.goBack + constants.targetDestination + model_name + "_add_form.html"
 
         context = {
             'm_model': EntityCreateDetails(model_name)
@@ -72,7 +73,7 @@ def create_add_html_file_for_entities(parsed_model):
 def create_update_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = model_name + "_update_form.generated.html"
+        filename = constants.goBack + constants.targetDestination + model_name + "_update_form.html"
 
         context = {
             'm_model': EntityCreateDetails(model_name)
@@ -86,7 +87,7 @@ def create_update_html_file_for_entities(parsed_model):
 def create_confirm_delete_html_file_for_entities(parsed_model):
     for model in parsed_model["modelItems"]:
         model_name = model["modelName"]
-        filename = model_name + "_confirm_delete_form.generated.html"
+        filename = constants.goBack + constants.targetDestination + model_name + "_confirm_delete_form.html"
 
         m_model = EntityCreateDetails(model_name)
         # let's say that first property of model is main property
