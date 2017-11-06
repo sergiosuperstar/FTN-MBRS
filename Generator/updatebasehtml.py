@@ -1,14 +1,15 @@
 import os
 from jinja2 import Environment, FileSystemLoader
-from execute import targetDestination
+import globals
 
 def render_template(template_filename, context):
+    constants = globals.Constants()
     path = os.path.dirname(os.path.abspath(__file__))
-    print(os.path.join(path, '..', targetDestination + "app\\templates\\"))
+    print(os.path.join(path, '..', constants.targetDestination + "app\\templates\\"))
 
     template_environment = Environment(
         autoescape=False,
-        loader=FileSystemLoader(os.path.join(path, '..', targetDestination + "app\\templates\\")),
+        loader=FileSystemLoader(os.path.join(path, '..', constants.targetDestination + "app\\templates\\")),
         trim_blocks=False)
     return template_environment.get_template(template_filename).render(context)
 
