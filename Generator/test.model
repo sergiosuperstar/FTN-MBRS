@@ -2,7 +2,7 @@
     model User : djangoUser
     {
         string name(max = 10, blank),
-        int age(max = 3, null, unique)
+        int age(validators[max(100),min(18)], null, unique)
     },
     model Project
     {

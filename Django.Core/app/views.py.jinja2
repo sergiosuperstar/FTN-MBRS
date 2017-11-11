@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
@@ -9,13 +8,16 @@ from django.contrib import messages
 
 # BEGIN_OF_CODE_GENERATION
 
+from .models import {% for m_model in m_models.modelItems -%} {{ m_model.modelName}}{{ "," if not loop.last }} {% endfor -%}
+{##}
+{##}
 {% for m_model in m_models.modelItems -%}
 @login_required
 def {{ m_model.modelName }}_list(request):
     {{ m_model.modelName }}_all = {{ m_model.modelName }}.objects.all()
-
-    template_name = 'app/{{ m_model.modelName }}_list.html'
-    return render(request, template_name, {{ m_model.modelName }}_all)
+    data = {% raw %}{'item_list': {% endraw %}{{ m_model.modelName }}{% raw %}_all}{% endraw %}
+    template_name = 'app/{{ m_model.modelName }}.html'
+    return render(request, template_name, data)
 
 {##}
 {% endfor -%}

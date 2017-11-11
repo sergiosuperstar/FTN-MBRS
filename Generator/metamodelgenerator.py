@@ -62,7 +62,7 @@ class MetamodelGenerator(object):
                         elif opt.maxValue is not None:
                             if baseProperty["propertyName"] == 'boolean':
                                 return "Boolean type doesn't support max value option"
-                            option["optionName"] = 'maxValue'
+                            option["optionName"] = 'max_length'
                             option["optionValue"] = opt.maxValue.number
                         elif opt.blank is not None:
                             option["optionName"] = 'blank'
