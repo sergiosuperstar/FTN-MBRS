@@ -1,25 +1,37 @@
 {
-    model User
+    model User : djangoUser
     {
         string name(max = 10, blank),
-        int age(max = 3, null, unique)
+        int age(validators[max(100),min(18)], null, unique)
     },
     model Project
     {
-        string title(min = 5, max = 50, unique),
+        string title(max = 50, unique),
         User owner(ref = "project_owner", OTM),
         int percentage(validators[max(100),min(5)],null)
     },
-    model Task
+    model WorkItem
     {
-        string title(min = 1, max = 100),
+        string title(max = 100),
         Project project(ref = "project_task", OTM),
-        User assignedTo(ref = "user_task", OTM),
+        User assignedTo(ref = "user_task", OTM)
+    },
+    model Task : WorkItem
+    {
         Task_Status_Choices status(null)
     },
+    model Bug : WorkItem
+    {
+        Bug_Status_Choices status(null)
+    },
+
     enum Task_Status_Choices = {
     (OPEN, open),
     (INPROGRESS, inprogress),
     (DONE, done)
+    },
+    enum Bug_Status_Choices = {
+    (OPEN, open),
+    (RESOLVED, resolved)
     }
 };

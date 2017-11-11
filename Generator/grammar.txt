@@ -10,9 +10,14 @@ Item:
 
 ModelItem:
     'model' name = Name
+    inherits = Inherits?
     '{'
     properties *= Property[',']
     '}'
+;
+
+Inherits:
+    (':' name = Name)
 ;
 
 EnumItem:
@@ -47,7 +52,7 @@ BaseType:
 ;
 
 Options:
-    (unique = Unique) | (maxValue = MaxValue) | (minValue = MinValue) | (null = Null) | (ref = Ref) | (cardinality = Cardinality) | (blank = Blank) | (validator = Validator) | (default = Default)
+    (unique = Unique) | (maxValue = MaxValue) | (null = Null) | (ref = Ref) | (cardinality = Cardinality) | (blank = Blank) | (validator = Validator) | (default = Default)
 ;
 
 Unique:
@@ -64,10 +69,6 @@ Blank:
 
 MaxValue:
     'max' '=' number = Number
-;
-
-MinValue:
-    'min' '=' number = Number
 ;
 
 Number:

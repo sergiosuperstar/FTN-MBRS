@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 # Create your models here.
 
 # BEGIN_OF_CODE_GENERATION
@@ -13,23 +14,23 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 {##}
 {% endfor -%}
 {% for m_model in m_models.modelItems -%}
-class {{m_model.modelName}}(models.Model):
+class {{m_model.modelName}}({{m_model.inherits}}):
 
     {% for m_baseProp in m_model.modelProperties.baseProperties -%}
         {{ m_baseProp.propertyName }} = models.{{m_mapper[m_baseProp.propertyType]}}(
         {% for m_option in m_baseProp.options -%}
             {{""|indent(4,true)}}
             {% if m_option.optionName != 'validators' -%}
-                {{m_option.optionName}}={{m_option.optionValue}},
+                {{m_option.optionName}}={{m_option.optionValue}}{{ "," if not loop.last }}
             {% else -%}
                 {{m_option.optionName}}=[
                 {% for m_validator in m_option.optionValue -%}
                     {{""|indent(4,true)}}
                     {% if m_validator.validatorName == 'validatorMax' -%}
-                    MaxValueValidator({{m_validator.validatorValue}}),
+                    MaxValueValidator({{m_validator.validatorValue}}){{ "," if not loop.last }}
                     {% endif-%}
                     {% if m_validator.validatorName == 'validatorMin' -%}
-                    MinValueValidator({{m_validator.validatorValue}}),
+                    MinValueValidator({{m_validator.validatorValue}}){{ "," if not loop.last }}
                     {% endif-%}
                 {% endfor -%}
                 ],

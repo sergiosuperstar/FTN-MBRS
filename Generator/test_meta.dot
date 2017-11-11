@@ -11,89 +11,92 @@
     edge[dir=black,arrowtail=empty]
 
 
-56311856 -> 56314096[arrowtail=diamond, dir=both, headlabel="properties 0..*"]
-56311856[ label="{ModelItem|+name:Name\l}"]
+64274104[ label="{Value|\\w+}"]
 
-56314096 -> 56314544[arrowtail=diamond, dir=both, headlabel="type "]
-56314096 -> 56315440[arrowtail=diamond, dir=both, headlabel="options 0..*"]
-56314096[ label="{Property|+name:Name\l}"]
+64301880[ label="{Ref|+refName:Name\l}"]
 
-56333232[ label="{Blank|blank}"]
+64303672[ label="{ValidatorMax|+maxValidatorValue:Number\l}"]
 
-56029232 -> 56311856[arrowtail=diamond, dir=both, headlabel="modelItem "]
-56029232 -> 56312304[arrowtail=diamond, dir=both, headlabel="enumItem "]
-56029232[ label="{Item|}"]
+64299192 -> 64294712[arrowtail=diamond, dir=both, headlabel="enumItems 0..*"]
+64299192[ label="{EnumItem|+name:Name\l}"]
 
-56332336[ label="{Unique|unique}"]
+64281272[ label="{Name|([A-Za-z])\\w+}"]
 
-56332784[ label="{Null|null}"]
+64271416 -> 64280376[arrowtail=diamond, dir=both, headlabel="validatorValues 0..*"]
+64271416[ label="{Validator|}"]
 
-56335472[ label="{Ref|+refName:Name\l}"]
+64295608[ label="{Key|\\w+}"]
 
-56344624 -> 56345072[arrowtail=diamond, dir=both, headlabel="validatorValues 0..*"]
-56344624[ label="{Validator|}"]
+64294712[ label="{EnumItems|+key:Key\l+value:Value\l}"]
 
-56315440 -> 56333680[arrowtail=diamond, dir=both, headlabel="maxValue "]
-56315440 -> 56334128[arrowtail=diamond, dir=both, headlabel="minValue "]
-56315440 -> 56335472[arrowtail=diamond, dir=both, headlabel="ref "]
-56315440 -> 56344624[arrowtail=diamond, dir=both, headlabel="validator "]
-56315440[ label="{Options|+unique:Unique\l+null:Null\l+cardinality:Cardinality\l+blank:Blank\l+default:Default\l}"]
+64297400[ label="{Type|+baseType:BaseType\l+customType:Name\l}"]
 
-56312304 -> 56312752[arrowtail=diamond, dir=both, headlabel="enumItems 0..*"]
-56312304[ label="{EnumItem|+name:Name\l}"]
+64300984[ label="{MaxValue|+number:Number\l}"]
 
-56030576 -> 56029232[arrowtail=diamond, dir=both, headlabel="items 0..*"]
-56030576[ label="{Items|}"]
+64275896 -> 64293816[arrowtail=diamond, dir=both, headlabel="inherits "]
+64275896 -> 64277688[arrowtail=diamond, dir=both, headlabel="properties 0..*"]
+64275896[ label="{ModelItem|+name:Name\l}"]
 
-56335920[ label="{Cardinality|MTM\|OTM}"]
+64296504 -> 64275896[arrowtail=diamond, dir=both, headlabel="modelItem "]
+64296504 -> 64299192[arrowtail=diamond, dir=both, headlabel="enumItem "]
+64296504[ label="{Item|}"]
 
-56312752[ label="{EnumItems|+key:Key\l+value:Value\l}"]
+64279480 -> 64300984[arrowtail=diamond, dir=both, headlabel="maxValue "]
+64279480 -> 64301880[arrowtail=diamond, dir=both, headlabel="ref "]
+64279480 -> 64271416[arrowtail=diamond, dir=both, headlabel="validator "]
+64279480[ label="{Options|+unique:Unique\l+null:Null\l+cardinality:Cardinality\l+blank:Blank\l+default:Default\l}"]
 
-56345072 -> 56345520[arrowtail=diamond, dir=both, headlabel="validatorMax "]
-56345072 -> 56345968[arrowtail=diamond, dir=both, headlabel="validatorMin "]
-56345072[ label="{ValidatorValues|}"]
+64298296 -> 64296504[arrowtail=diamond, dir=both, headlabel="items 0..*"]
+64298296[ label="{Items|}"]
 
-56335024[ label="{Name|([A-Za-z])\\w+}"]
+64269624[ label="{Number|[0-9]+}"]
 
-56334128[ label="{MinValue|+number:Number\l}"]
+64304568[ label="{Default|default = ([A-Za-z])\\w+}"]
 
-56313200[ label="{Key|\\w+}"]
+64302776[ label="{Cardinality|MTM\|OTM}"]
 
-56314544[ label="{Type|+baseType:BaseType\l+customType:Name\l}"]
+64277688 -> 64297400[arrowtail=diamond, dir=both, headlabel="type "]
+64277688 -> 64279480[arrowtail=diamond, dir=both, headlabel="options 0..*"]
+64277688[ label="{Property|+name:Name\l}"]
 
-56334576[ label="{Number|[0-9]+}"]
+64268728[ label="{Unique|unique}"]
 
-56346416[ label="{Default|default = ([A-Za-z])\\w+}"]
+64293816[ label="{Inherits|+name:Name\l}"]
 
-56313648[ label="{Value|\\w+}"]
+64278584[ label="{BaseType|string\|int\|date\|datetime\|url\|boolean\|char\|decimal}"]
 
-56333680[ label="{MaxValue|+number:Number\l}"]
+64300088[ label="{Blank|blank}"]
 
-56345520[ label="{ValidatorMax|+maxValidatorValue:Number\l}"]
+64280376 -> 64303672[arrowtail=diamond, dir=both, headlabel="validatorMax "]
+64280376 -> 64272312[arrowtail=diamond, dir=both, headlabel="validatorMin "]
+64280376[ label="{ValidatorValues|}"]
 
-56314992[ label="{BaseType|string\|int\|date\|datetime\|url\|boolean\|char\|decimal}"]
+64267832[ label="{Null|null}"]
 
-56345968[ label="{ValidatorMin|+minValidatorValue:Number\l}"]
+64272312[ label="{ValidatorMin|+minValidatorValue:Number\l}"]
 
-56130672[ label="{NUMBER|}"]
-56130672 -> 56130224 [dir=back]
-56130672 -> 56129776 [dir=back]
+64289336[ label="{BOOL|}"]
 
-56131120[ label="{BASETYPE|}"]
-56131120 -> 56130672 [dir=back]
-56131120 -> 56129328 [dir=back]
-56131120 -> 56128432 [dir=back]
-56131120 -> 56128880 [dir=back]
+64288440[ label="{BASETYPE|}"]
+64288440 -> 64266040 [dir=back]
+64288440 -> 64289336 [dir=back]
+64288440 -> 64283960 [dir=back]
+64288440 -> 64264248 [dir=back]
 
-56128880[ label="{STRING|}"]
+64283960[ label="{ID|}"]
 
-56128432[ label="{ID|}"]
+64266040[ label="{NUMBER|}"]
+64266040 -> 64292920 [dir=back]
+64266040 -> 64287544 [dir=back]
 
-56129776[ label="{INT|}"]
+64292920[ label="{FLOAT|}"]
 
-56129328[ label="{BOOL|}"]
+64287544[ label="{INT|}"]
 
-56130224[ label="{FLOAT|}"]
+64265144[ label="{*OBJECT|}"]
+64265144 -> 64288440 [dir=back]
+
+64264248[ label="{STRING|}"]
 
 
 }
