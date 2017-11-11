@@ -20,7 +20,7 @@ class EntityDetails(object):
         self.Url = name
 
 def create_base_html_file(parsed_model):
-    filename = constants.goBack + constants.targetDestination + "base.html"
+    filename = constants.goBack + constants.targetDestination + "app\\templates\\" + "base.html"
     entitiesDetails = []
     for model in parsed_model["modelItems"]:
         entitiesDetails.append(EntityDetails(model["modelName"]))

@@ -1,5 +1,8 @@
-from textx.metamodel import metamodel_from_file
 import os
+
+from textx.metamodel import metamodel_from_file
+from textx.export import metamodel_export, model_export
+import pydot
 
 
 class MetamodelGenerator(object):
@@ -28,6 +31,13 @@ class MetamodelGenerator(object):
         for model_item in model_items:
             one_model = {}
             one_model["modelName"] = model_item.name
+            if model_item.inherits is None:
+                one_model["inherits"] = 'models.Model'
+            elif model_item.inherits.name == 'djangoUser':
+                one_model["inherits"] = 'User'
+            else:
+                one_model["inherits"] = model_item.inherits.name
+
             properties = {}
             baseProperties = []
             customProperties = []
@@ -54,11 +64,6 @@ class MetamodelGenerator(object):
                                 return "Boolean type doesn't support max value option"
                             option["optionName"] = 'maxValue'
                             option["optionValue"] = opt.maxValue.number
-                        elif opt.minValue is not None:
-                            if baseProperty["propertyName"] == 'boolean':
-                                return "Boolean type doesn't support min value option"
-                            option["optionName"] = 'minValue'
-                            option["optionValue"] = opt.minValue.number
                         elif opt.blank is not None:
                             option["optionName"] = 'blank'
                             option["optionValue"] = 'True'
@@ -135,12 +140,20 @@ class MetamodelGenerator(object):
     def create_metamodel(self, path, grammar_file_name, example_file_name):
 
         meta_path = os.path.join(path, grammar_file_name)
-        meta_name = os.path.splitext(meta_path)[0]
+        # meta_name = os.path.splitext(meta_path)[0]
         metamodel = metamodel_from_file(meta_path)
 
         model_path = os.path.join(path, example_file_name)
-        model_name = os.path.splitext(model_path)[0]
+        # model_name = os.path.splitext(model_path)[0]
         model = metamodel.model_from_file(model_path)
+
+        metamodel_export(metamodel, 'test_meta.dot')
+        graph = pydot.graph_from_dot_file('test_meta.dot')
+        graph[0].write_png('test_meta.png')
+
+        model_export(model, 'test_model.dot')
+        graph = pydot.graph_from_dot_file('test_model.dot')
+        graph[0].write_png('test_model.png')
 
         return model;
 

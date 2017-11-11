@@ -92,7 +92,10 @@ def create_confirm_delete_html_file_for_entities(parsed_model):
 
         m_model = EntityCreateDetails(model_name)
         # let's say that first property of model is main property
-        m_model.MainProperty = model["modelProperties"]["baseProperties"][0]["propertyName"]
+        if len(model["modelProperties"]["baseProperties"]) == 0:
+            m_model.MainProperty = model["modelProperties"]["customProperties"][0]["propertyName"]
+        else:
+            m_model.MainProperty = model["modelProperties"]["baseProperties"][0]["propertyName"]
         context = {
             'm_model': m_model
         }
