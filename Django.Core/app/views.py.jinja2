@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
@@ -45,7 +46,7 @@ def {{ m_model.modelName }}_detail(request, pk):
 {##}
 @login_required
 def {{ m_model.modelName }}_create(request):
-    template_name = 'app/{{ m_model.modelName }}_create.html'
+    template_name = 'app/{{ m_model.modelName }}_add_form.html'
     form = {{ m_model.modelName }}Form(request.POST or None)
     if form.is_valid():
         item = form.save(commit=False)
