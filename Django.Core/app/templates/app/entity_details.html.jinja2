@@ -1,0 +1,32 @@
+{% raw %}
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+{% endraw %}
+
+<h1>{{ m_model.MainProperty }}</h1>
+{% for m_modelPropertyName in m_model.PropertyNames -%}
+    <p><b>{{m_modelPropertyName}}:</b>{% raw %}{{item{% endraw %}.{{m_modelPropertyName}}{% raw %}}}{% endraw %}</p>
+{% endfor -%}
+<div style="float: inherit">
+    <form action="{% raw %}{%{% endraw %} url '{{m_model.UrlForEdit}}' item.id {% raw %}%}{% endraw %}" method="put" class="form">
+        {% raw %}
+        {% csrf_token %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary" >
+                {% bootstrap_icon "edit" %}</button>
+        {% endbuttons %}
+        {% endraw %}
+    </form>
+    <form action="{% raw %}{%{% endraw %} url '{{m_model.UrlForDelete}}' item.id {% raw %}%}{% endraw %}" method="delete" class="form">
+        {% raw %}
+        {% csrf_token %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary" >
+                {% bootstrap_icon "trash" %}</button>
+        {% endbuttons %}
+        {% endraw %}
+    </form>
+</div>

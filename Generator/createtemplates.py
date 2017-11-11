@@ -18,7 +18,7 @@ class EntityDetails(object):
     def __init__(self, name, main_property, property_list, entity_properies_name_for_display):
         self.Name = name
         #implement logic for creating urls from entity name
-        self.UrlForNew = name + "_create_form"
+        self.UrlForNew = name + "_form"
         self.UrlForEdit = name + "_update_form"
         self.UrlForDelete = name + "_confirm_delete_form"
         self.UrlForDetails = name + "_details"
@@ -100,3 +100,28 @@ def create_confirm_delete_html_file_for_entities(parsed_model):
         with open(filename, 'w') as f:
             update_html = render_template('entity_confirm_delete.html.jinja2', context)
             f.write(update_html)
+
+
+def create_details_html_file_for_entities(parsed_model):
+    for model in parsed_model["modelItems"]:
+        model_name = model["modelName"]
+        filename = pathToThePages + model_name + "_details.html"
+        entity_properties = []
+        entity_properies_name_for_display = []
+
+        for modelBaseProperty in model["modelProperties"]["baseProperties"]:
+            entity_properties.append(modelBaseProperty["propertyName"])
+            entity_properies_name_for_display.append(modelBaseProperty["propertyName"].capitalize())
+        for modelCustomProperty in model["modelProperties"]["customProperties"]:
+            entity_properties.append(modelCustomProperty["propertyName"])
+            entity_properies_name_for_display.append(modelCustomProperty["propertyName"].capitalize())
+
+        main_property = entity_properties[0]
+
+        context = {
+            'm_model': EntityDetails(model_name, main_property, entity_properties, entity_properies_name_for_display)
+        }
+
+        with open(filename, 'w') as f:
+            details_html = render_template('entity_details.html.jinja2', context)
+            f.write(details_html)

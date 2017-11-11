@@ -23,7 +23,7 @@ copyEngine.copySourceToTargetDestination(constants.goBack + constants.djangoCore
 updatemodels.create_model_py_file(parsed_model, generator.mapper)
 
 # update views
-updateviews.create_views_py_file(parsed_model, generator.mapper)
+#updateviews.create_views_py_file(parsed_model, generator.mapper)
 
 # update urls
 createurlfile.create_urls_py_file(parsed_model)
@@ -34,4 +34,5 @@ createtemplates.create_base_html_file_for_entities(parsed_model)
 createtemplates.create_add_html_file_for_entities(parsed_model)
 createtemplates.create_update_html_file_for_entities(parsed_model)
 createtemplates.create_confirm_delete_html_file_for_entities(parsed_model)
+createtemplates.create_details_html_file_for_entities(parsed_model)
 
