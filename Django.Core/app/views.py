@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.forms import ModelForm
+from django.http import HttpResponseRedirect
+from .forms import DateInput, TimeInput
 
 # Create your views here.
 
