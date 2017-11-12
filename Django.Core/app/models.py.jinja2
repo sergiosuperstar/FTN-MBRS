@@ -52,8 +52,13 @@ class {{m_model.modelName}}({{m_model.inherits}}):
     {% endfor-%}
     {##}
     def __str__(self):
-        return self.name
+        {% if m_model.inherits == 'models.Model' -%}
+        return self.{% for m_baseProp in m_model.modelProperties.baseProperties -%}{{m_baseProp.propertyName}}{% break %}{% endfor %}
+        {% else -%}
+        return super().__str__()
+        {% endif -%}
 
-
+    {##}
+    {##}
 {% endfor -%}
 # END_OF_CODE_GENERATION

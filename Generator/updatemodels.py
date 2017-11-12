@@ -8,6 +8,7 @@ def render_template(template_filename, context):
     print(os.path.join(path, constants.goBack, constants.targetDestination + "app\\"))
 
     template_environment = Environment(
+        extensions=['jinja2.ext.loopcontrols'],
         autoescape=False,
         loader=FileSystemLoader(os.path.join(path, constants.goBack, constants.targetDestination + "app\\")),
         trim_blocks=False)

@@ -6,9 +6,11 @@
 {% block content %}
 {% endraw %}
 
-<h1>{{ m_model.MainProperty }}</h1>
-{% for m_modelPropertyName in m_model.PropertyNames -%}
-    <p><b>{{m_modelPropertyName}}:</b>{% raw %}{{item{% endraw %}.{{m_modelPropertyName}}{% raw %}}}{% endraw %}</p>
+<h1>{% raw %}{{item{% endraw %}.{{ m_model.MainProperty }}{% raw %}}}{% endraw %}</h1>
+{% for m_modelPropertyName in m_model.Properties -%}
+    {% if m_model.Properties[loop.index-1] !=  m_model.MainProperty %}
+        <p><b>{{m_model.PropertyNames[loop.index-1]}}: </b>{% raw %}{{item{% endraw %}.{{m_model.Properties[loop.index-1]}}{% raw %}}}{% endraw %}</p>
+    {% endif %}
 {% endfor -%}
 <div style="float: inherit">
     <form action="{% raw %}{%{% endraw %} url '{{m_model.UrlForEdit}}' item.id {% raw %}%}{% endraw %}" method="put" class="form">
@@ -27,6 +29,7 @@
             <button type="submit" class="btn btn-primary" >
                 {% bootstrap_icon "trash" %}</button>
         {% endbuttons %}
-        {% endraw %}
     </form>
 </div>
+{% endblock content %}
+{% endraw %}

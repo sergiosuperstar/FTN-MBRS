@@ -20,8 +20,8 @@ class EntityDetails(object):
         #implement logic for creating urls from entity name
         self.UrlForNew = name + "_form"
         self.UrlForEdit = name + "_update_form"
-        self.UrlForDelete = name + "_confirm_delete_form"
-        self.UrlForDetails = name + "_details"
+        self.UrlForDelete = name + "_confirm_delete"
+        self.UrlForDetails = name + "_detail"
         self.MainProperty = main_property
         self.Properties = property_list
         self.PropertyNames = entity_properies_name_for_display

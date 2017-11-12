@@ -21,7 +21,7 @@ class {{ m_model.modelName }}Form(ModelForm):
 
     class Meta:
         model = {{ m_model.modelName }}
-        fields = [{% for m_baseProp in m_model.modelProperties.baseProperties -%}'{{ m_baseProp.propertyName }}'{{ "," if not loop.last }}{% endfor -%}]
+        fields = [{% for m_baseProp in m_model.modelProperties.baseProperties -%}'{{ m_baseProp.propertyName }}',{% endfor -%}{% for m_customProp in m_model.modelProperties.customProperties -%}'{{ m_customProp.propertyName }}'{{ "," if not loop.last }}{% endfor -%}]
         # add custom properties, validators widgets
 {##}
 {##}
@@ -57,7 +57,7 @@ def {{ m_model.modelName }}_create(request):
 {##}
 @login_required
 def {{ m_model.modelName }}_delete(request, pk):
-    template_name = 'app/{{ m_model.modelName }}_confirm_delete.html'
+    template_name = 'app/{{ m_model.modelName }}_confirm_delete_form.html'
     item = get_object_or_404({{ m_model.modelName }}, pk=pk)
     if request.method == 'POST':
         item.delete()
