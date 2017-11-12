@@ -2,6 +2,7 @@ import os, metamodelgenerator
 import updatemodels, updatebasehtml, createtemplates, copyEngine, createurlfile
 import globals
 import updateviews
+import migrations
 
 # prepare globals
 constants = globals.Constants()
@@ -36,3 +37,5 @@ createtemplates.create_update_html_file_for_entities(parsed_model)
 createtemplates.create_confirm_delete_html_file_for_entities(parsed_model)
 createtemplates.create_details_html_file_for_entities(parsed_model)
 
+# try to create and run migrations
+migrations.run()
