@@ -33,6 +33,21 @@ def create_base_html_file_for_entities(parsed_model):
         entity_properties = []
         entity_properies_name_for_display = []
 
+        if model["inherits"] != "models.Model" and model["inherits"] != "User":
+            for m_model in parsed_model["modelItems"]:
+                if model["inherits"] == m_model["modelName"]:
+                    for m_baseProp in m_model["modelProperties"]["baseProperties"]:
+                        entity_properties.append(m_baseProp["propertyName"])
+                        entity_properies_name_for_display.append(m_baseProp["propertyName"].capitalize())
+                    for m_customProp in m_model["modelProperties"]["customProperties"]:
+                        entity_properties.append(m_customProp["propertyName"])
+                        entity_properies_name_for_display.append(m_customProp["propertyName"].capitalize())
+        elif model["inherits"] == 'User':
+            inherited = ['username', 'first_name', 'last_name', 'email']
+            inherited_capitalize = ['Username', 'First name', 'Last name', 'Email']
+            entity_properties = entity_properties + inherited
+            entity_properies_name_for_display = entity_properies_name_for_display + inherited_capitalize
+
         for modelBaseProperty in model["modelProperties"]["baseProperties"]:
             entity_properties.append(modelBaseProperty["propertyName"])
             entity_properies_name_for_display.append(modelBaseProperty["propertyName"].capitalize())
@@ -96,6 +111,12 @@ def create_confirm_delete_html_file_for_entities(parsed_model):
             m_model.MainProperty = model["modelProperties"]["customProperties"][0]["propertyName"]
         else:
             m_model.MainProperty = model["modelProperties"]["baseProperties"][0]["propertyName"]
+
+        if model["inherits"] != "models.Model" and model["inherits"] != "User":
+            for m2_model in parsed_model["modelItems"]:
+                if model["inherits"] == m2_model["modelName"]:
+                    m_model.MainProperty = m2_model["modelProperties"]["baseProperties"][0]["propertyName"]
+
         context = {
             'm_model': m_model
         }
@@ -111,6 +132,21 @@ def create_details_html_file_for_entities(parsed_model):
         filename = pathToThePages + model_name + "_details.html"
         entity_properties = []
         entity_properies_name_for_display = []
+
+        if model["inherits"] != "models.Model" and model["inherits"] != "User":
+            for m_model in parsed_model["modelItems"]:
+                if model["inherits"] == m_model["modelName"]:
+                    for m_baseProp in m_model["modelProperties"]["baseProperties"]:
+                        entity_properties.append(m_baseProp["propertyName"])
+                        entity_properies_name_for_display.append(m_baseProp["propertyName"].capitalize())
+                    for m_customProp in m_model["modelProperties"]["customProperties"]:
+                        entity_properties.append(m_customProp["propertyName"])
+                        entity_properies_name_for_display.append(m_customProp["propertyName"].capitalize())
+        elif model["inherits"] == 'User':
+            inherited = ['username', 'first_name', 'last_name', 'email']
+            inherited_capitalize = ['Username', 'First name', 'Last name', 'Email']
+            entity_properties = entity_properties + inherited
+            entity_properies_name_for_display = entity_properies_name_for_display + inherited_capitalize
 
         for modelBaseProperty in model["modelProperties"]["baseProperties"]:
             entity_properties.append(modelBaseProperty["propertyName"])
