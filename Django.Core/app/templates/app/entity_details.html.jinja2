@@ -3,6 +3,8 @@
 
 {% load bootstrap3 %}
 
+{% load include_maybe %}
+
 {% block content %}
 {% endraw %}
 
@@ -29,7 +31,9 @@
             <button type="submit" class="btn btn-primary" >
                 {% bootstrap_icon "trash" %}</button>
         {% endbuttons %}
+        {% endraw %}
     </form>
+    {% raw %}{% include_maybe "app\{% endraw %}{{m_model.Name}}{% raw %}_details_custom.html" %}
 </div>
 {% endblock content %}
 {% endraw %}

@@ -52,9 +52,8 @@ def {{ m_model.modelName }}_list(request):
 {##}
 @login_required
 def {{ m_model.modelName }}_detail(request, pk):
-    customData = CustomFunctions.get_custom_data_for_{{ m_model.modelName }}_list
     {{ m_model.modelName }}_data = get_object_or_404({{ m_model.modelName }}, pk=pk)
-
+    customData = CustomFunctions.get_custom_data_for_{{ m_model.modelName }}_list({{ m_model.modelName }}_data)
     template_name = 'app/{{ m_model.modelName }}_details.html'
     data = {"item": {{ m_model.modelName }}_data, 'custom_data': customData}
     return render(request, template_name, data)

@@ -1,6 +1,10 @@
+from .models import {% for m_model in m_models -%} {{ m_model}}{{ "," if not loop.last }} {% endfor -%}
+{##}
+{##}
+
 class CustomFunctions():
 {% for m_model in m_models -%}
 {##}
-    def get_custom_data_for_{{ m_model }}_list(self):
+    def get_custom_data_for_{{ m_model }}_list({{ m_model }}):
         return None
 {% endfor %}

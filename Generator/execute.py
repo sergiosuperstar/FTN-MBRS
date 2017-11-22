@@ -3,6 +3,7 @@ import updatemodels, updatebasehtml, createtemplates, copyEngine, createurlfile
 import globals
 import updateviews
 import migrations
+import createCustomFiles
 
 # prepare globals
 constants = globals.Constants()
@@ -36,6 +37,10 @@ createtemplates.create_add_html_file_for_entities(parsed_model)
 createtemplates.create_update_html_file_for_entities(parsed_model)
 createtemplates.create_confirm_delete_html_file_for_entities(parsed_model)
 createtemplates.create_details_html_file_for_entities(parsed_model)
+
+# create custom files function
+if os.stat(constants.goBack + constants.targetDestination + 'app\\customs.py').st_size == 0:
+    createCustomFiles.create_custom_functions(parsed_model)
 
 # try to create and run migrations
 migrations.run()
